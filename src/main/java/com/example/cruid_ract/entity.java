@@ -2,6 +2,8 @@ package com.example.cruid_ract;
 
 import jakarta.persistence.*;
 
+import java.time.LocalDate;
+
 @Entity
 @Table(name = "books")
 public class entity {
@@ -12,15 +14,23 @@ public class entity {
 
     private int phone;
     private String name;
+    private LocalDate dueDate; // Due date for book return
+
+    // Getters and setters
+    public LocalDate getDueDate() {
+        return dueDate;
+    }
+
+    public void setDueDate(LocalDate dueDate) {
+        this.dueDate = dueDate;
+    }
 
 
-
-
-    public entity(Long id, int phone, String name) {
+    public entity(Long id, int phone, String name, LocalDate dueDate) {
         this.id = id;
         this.phone = phone;
         this.name = name;
-
+        this.dueDate = dueDate;
     }
 
     public entity() {
