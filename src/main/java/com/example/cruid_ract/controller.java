@@ -4,6 +4,7 @@ import org.antlr.v4.runtime.atn.SemanticContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.awt.print.Book;
@@ -33,15 +34,21 @@ public ResponseEntity<entity> book(@PathVariable("id") Long id){
     return ResponseEntity.notFound().build();
 }
 @PostMapping()
-    ResponseEntity<String >bookcreate(@RequestBody entity book){
-   try{
-       book.setDueDate(LocalDate.now());
-   jpac.save(book);
-   }catch (Exception e){
-       return ResponseEntity.badRequest().build();
-   }
-  return ResponseEntity.ok("book created");
-    }
+@Transactional
+    ResponseEntity<String >bookcreate(@RequestBody entity book) {
+    try {
+
+        book.setDueDate(LocalDate.now());
+        book.setDueDate(null);
+        jpac.save(book);
+    } catch (Exception e) {
+
+        throw new RuntimeException("data is not insert", e);
+
+    }return ResponseEntity.badRequest().build();
+}
+
+
 
     @PutMapping("/{id}")
     entity updatebook(@PathVariable Long id ,@RequestBody entity book){

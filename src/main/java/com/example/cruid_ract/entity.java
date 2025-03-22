@@ -1,6 +1,7 @@
 package com.example.cruid_ract;
 
 import jakarta.persistence.*;
+import lombok.NonNull;
 
 import java.time.LocalDate;
 
@@ -14,6 +15,7 @@ public class entity {
 
     private int phone;
     private String name;
+    @NonNull
     private LocalDate dueDate; // Due date for book return
 
     // Getters and setters
